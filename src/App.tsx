@@ -1,3 +1,4 @@
+import TaskFilter from "./components/TaskFilter/TaskFilter";
 import TaskList from "./components/TaskList/TaskList";
 import type { Task } from "./types/index";
 
@@ -36,7 +37,7 @@ function App() {
       <h2>Welcome to the Task Manager App! </h2>
      <br /> 
 
-      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'center' }}>
+      {/* <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ flex: .2 }}>
           <p>Status</p>
           <select>
@@ -53,9 +54,10 @@ function App() {
             <option value="high">High</option>
           </select>
         </div>
-      </div><br />
+      </div><br /> */}
 
-
+      <TaskFilter onFilterChange={() => { }} />
+        <br />
       <TaskList tasks={taskList} onStatusChange={() => { }} onDelete={() => { }} />
     </div>
   )
