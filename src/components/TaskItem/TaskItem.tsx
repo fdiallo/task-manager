@@ -1,20 +1,34 @@
 import type { TaskItemProps } from "../../types";
 
 
-function TaskItem({ task: {id, title, description, status, priority, dueDate }, onStatusChange, onDelete }: TaskItemProps) {
-    
+function TaskItem({ task: { id, title, description, status, priority, dueDate }, onStatusChange, onDelete }: TaskItemProps) {
+
 
     return (
-        <div>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <p>Status: {status}</p>
-            <p>Priority: {priority}</p>
-            <p>Due Date: {dueDate}</p>
-            <button onClick={() => onStatusChange(id, 'in-progress')}>Start</button>
-            <button onClick={() => onStatusChange(id, 'completed')}>Complete</button>
-            <button onClick={() => onDelete(id)}>Delete</button>
-        </div>      
+        <div style={{ border: '1px solid #8b7070', padding: '10px', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3>{title}</h3>
+                <div>
+                    <select value={status} onChange={(e) => onStatusChange(id, e.target.value as any)}>
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <button style={{marginLeft: '20px'}} onClick={() => onDelete(id)}>Delete</button>
+                </div>
+            </div>
+            <div style={{display: 'flex', marginBottom: '10px'}}>
+                <p>{description}</p>
+            </div>
+             <div style={{display: 'flex', marginBottom: '10px' }}>
+                <p>
+                    <span style={{ paddingRight: '20px' }}>Priority: {priority}</span>
+                    <span>Due Date: {dueDate}</span>
+                </p>
+            </div>
+
+
+        </div>
     )
 }
 

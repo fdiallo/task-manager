@@ -1,5 +1,5 @@
 import TaskList from "./components/TaskList/TaskList";
-import type { Task} from "./types/index";
+import type { Task } from "./types/index";
 
 function App() {
 
@@ -32,9 +32,32 @@ function App() {
 
   return (
     <div>
-      <h1>Task Manager</h1>
-      <TaskList tasks = {taskList} onStatusChange={() => {}} onDelete={() => {}} />
-    </div>    
+      <br /> 
+      <h2>Welcome to the Task Manager App! </h2>
+     <br /> 
+
+      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ flex: .2 }}>
+          <p>Status</p>
+          <select>
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div style={{ flex: .2 }}>
+          <p>Priority</p>
+          <select>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div><br />
+
+
+      <TaskList tasks={taskList} onStatusChange={() => { }} onDelete={() => { }} />
+    </div>
   )
 }
 
