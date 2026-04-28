@@ -1,10 +1,11 @@
+import { useState } from "react";
 import TaskFilter from "./components/TaskFilter/TaskFilter";
 import TaskList from "./components/TaskList/TaskList";
 import type { Task } from "./types/index";
 
 function App() {
 
-  const taskList: Task[] = [
+  const [taskList, setTaskList] = useState<Task[]>([
     {
       id: '1',
       title: 'Task 1',
@@ -29,13 +30,18 @@ function App() {
       priority: 'low',
       dueDate: '2024-10-31'
     }
-  ];
+  ]
+  )
+
+  const [filter, setFilter] = useState<{ status?: Task['status']; priority?: Task['priority'] }>({})
+
+  const [currentTaskList, setCurrentTaskList] = useState<Task[]>([])
 
   return (
     <div>
-      <br /> 
+      <br />
       <h2>Welcome to the Task Manager App! </h2>
-     <br /> 
+      <br />
 
       {/* <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ flex: .2 }}>
@@ -56,9 +62,30 @@ function App() {
         </div>
       </div><br /> */}
 
-      <TaskFilter onFilterChange={() => { }} />
-        <br />
-      <TaskList tasks={taskList} onStatusChange={() => { }} onDelete={() => { }} />
+
+
+
+
+      {/* <TaskFilter onFilterChange={(filters) => console.log('Filters changed:', filters)} /> */}
+
+      <TaskFilter onFilterChange={(filters) => {
+        console.log('Filters changed:', filters)
+      }
+      } />
+
+
+      <br />
+      <TaskList tasks={taskList}
+        onStatusChange={(taskId, newStatus) => {
+          console.log(`Status of task ${taskId} changed to ${newStatus}`)
+        }
+        }
+        onDelete={(taskId) => {
+          console.log(`Task ${taskId} deleted`)
+        }
+        }
+      />
+
     </div>
   )
 }
