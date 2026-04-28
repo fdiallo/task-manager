@@ -3,9 +3,20 @@ import TaskFilter from "./components/TaskFilter/TaskFilter";
 import TaskList from "./components/TaskList/TaskList";
 import type { Task } from "./types/index";
 
+/**
+ * Task Manager App
+ * 
+ * This app allows users to manage their tasks by adding, updating, and deleting them. 
+ * Users can also filter tasks based on their status and priority.  
+ * 
+ */
 function App() {
 
-  const [taskList, setTaskList] = useState<Task[]>([
+  /**
+   * Initial task list with 3 tasks. In a real application, 
+   * this data would likely come from an API or database.
+   */
+  const [taskList] = useState<Task[]>([
     {
       id: '1',
       title: 'Task 1',
@@ -33,9 +44,11 @@ function App() {
   ]
   )
 
-  const [filter, setFilter] = useState<{ status?: Task['status']; priority?: Task['priority'] }>({})
-
-  const [currentTaskList, setCurrentTaskList] = useState<Task[]>([])
+  /**
+   * State to hold the filtered list of tasks based on the selected filters. 
+   * Initially, it is set to the full task list.  
+   */
+  const [filteredTaskList, setFilteredTaskList] = useState<Task[]>(taskList)
 
   return (
     <div>
@@ -43,45 +56,59 @@ function App() {
       <h2>Welcome to the Task Manager App! </h2>
       <br />
 
-      {/* <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ flex: .2 }}>
-          <p>Status</p>
-          <select>
-            <option value="pending">Pending</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
-          </select>
-        </div>
-        <div style={{ flex: .2 }}>
-          <p>Priority</p>
-          <select>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-      </div><br /> */}
-
-
-
-
-
-      {/* <TaskFilter onFilterChange={(filters) => console.log('Filters changed:', filters)} /> */}
-
+      {/**
+      * TaskFilter component allows users to filter tasks based on their status and priority.
+      * The onFilterChange prop is a callback function that updates the filtered task list based on the selected filters.
+      */}
       <TaskFilter onFilterChange={(filters) => {
+
         console.log('Filters changed:', filters)
+
+        /**
+         * Filter the task list based on the selected status and priority. 
+         * If a filter is not selected (i.e., empty), it will not be applied. 
+         * The filtered task list is then updated using the setFilteredTaskList function. 
+         */
+        setFilteredTaskList(taskList.filter(task => {
+          if (filters.status && task.status !== filters.status) {
+            return false;
+          }
+          if (filters.priority && task.priority !== filters.priority) {
+            return false;
+          }
+          return true;
+        }))
       }
       } />
 
-
       <br />
-      <TaskList tasks={taskList}
+
+      {/**
+      * TaskList component displays the list of tasks based on the applied filters.
+      */}
+      <TaskList tasks={filteredTaskList}
+        /**
+         * onStatusChange is a callback function that updates 
+         * the status of a task when it is changed in the TaskItem component.
+         */
         onStatusChange={(taskId, newStatus) => {
           console.log(`Status of task ${taskId} changed to ${newStatus}`)
+          setFilteredTaskList(filteredTaskList.map(task => {
+            if (task.id === taskId) {
+              return { ...task, status: newStatus }
+            }
+            return task
+          }))
         }
         }
+
+        /**
+         * onDelete is a callback function that deletes a task when 
+         * the delete button is clicked in the TaskItem component.    
+         */
         onDelete={(taskId) => {
           console.log(`Task ${taskId} deleted`)
+          setFilteredTaskList(filteredTaskList.filter(task => task.id !== taskId))
         }
         }
       />
