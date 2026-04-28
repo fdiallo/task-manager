@@ -12,11 +12,17 @@ function TaskItem({ task: { id, title, description, status, priority, dueDate },
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3>{title}</h3>
                 <div>
+                    {/**
+                        * The select element allows users to change the status of the task.
+                     */}
                     <select value={status} onChange={(e) => onStatusChange(id, e.target.value as any)}>
                         <option value="pending">Pending</option>
                         <option value="in-progress">In Progress</option>
                         <option value="completed">Completed</option>
                     </select>
+                    {/**
+                        * The button allows users to delete the task when clicked.
+                     */}
                     <button style={{marginLeft: '20px'}} onClick={() => onDelete(id)}>Delete</button>
                 </div>
             </div>

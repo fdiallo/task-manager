@@ -12,6 +12,9 @@ function TaskList({ tasks, onStatusChange, onDelete }: TaskListProps) {
 
     return (
         <div>
+            {/**
+                * Map through the list of tasks and render a TaskItem component for each task.
+             */}
             {tasks.map(task => (
                 <TaskItem key={task.id} task={task} onStatusChange={onStatusChange} onDelete={onDelete} />
             ))}

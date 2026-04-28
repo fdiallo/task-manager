@@ -23,7 +23,7 @@ function App() {
       description: 'Description for Task 1',
       status: 'pending',
       priority: 'medium',
-      dueDate: '2024-12-31'
+      dueDate: '2025-12-31'
     },
     {
       id: '2',
@@ -31,7 +31,7 @@ function App() {
       description: 'Description for Task 2',
       status: 'in-progress',
       priority: 'high',
-      dueDate: '2024-11-30'
+      dueDate: '2025-11-30'
     },
     {
       id: '3',
@@ -39,7 +39,7 @@ function App() {
       description: 'Description for Task 3',
       status: 'completed',
       priority: 'low',
-      dueDate: '2024-10-31'
+      dueDate: '2025-10-31'
     }
   ]
   )
